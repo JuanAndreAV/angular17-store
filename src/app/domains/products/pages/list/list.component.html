@@ -1,0 +1,13 @@
+<div class="container mx-auto">
+    <app-header [Cart]="cart()"/>
+    
+    <div class="grid grid-cols-4 gap-8 mt-5">
+    
+    <app-product 
+    *ngFor="let product of products()"
+    [Product]="product"
+    (addToCart)="addToCart($event)"></app-product>
+    
+    </div>
+</div>
+
