@@ -4,6 +4,7 @@ import { ProductComponent } from '../../components/product/product.component';
 import { HeaderComponent } from 'src/app/domains/shared/components/header/header.component';
 import { Product } from 'src/app/domains/shared/models/product.model';
 import { CartService } from 'src/app/domains/shared/services/cart.service';
+import { ProductService } from 'src/app/domains/shared/services/product.service';
 
 
 @Component({
@@ -16,10 +17,25 @@ import { CartService } from 'src/app/domains/shared/services/cart.service';
 export class ListComponent {
 products = signal<Product[]>([]);
 private cartService = inject(CartService);
+private productService = inject(ProductService)
+
+ngOnInit(){
+  this.productService.getProducts()
+  .subscribe({
+    next: (products) => {
+      this.products.set(products as Product[]);
+    },
+    error: (error) => {
+      console.log(error);
+      
+    }
+  })
+
+}
 
 
-constructor(){
-  const initProducts: Product[] = [
+ /*constructor(){
+ const initProducts: Product[] = [
     {
       id: Date.now(),
       title: 'Producto 1',
@@ -64,7 +80,7 @@ constructor(){
     }
   ];
   this.products.set(initProducts)
-}
+}*/ // no requiero el constructor ya que los datos los traeré desde la API
 
  addToCart(product: Product){
     this.cartService.addToCart(product)
