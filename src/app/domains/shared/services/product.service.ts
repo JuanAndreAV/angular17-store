@@ -20,6 +20,6 @@ private http = inject(HttpClient);
   }
 
   getOne(){
-    return this.http.get<Product>(`https://api.escuelajs.co/api/v1/products/5`)
+    return this.http.get<Product>(`https://api.escuelajs.co/api/v1/products/1`)
   }
 }
